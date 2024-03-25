@@ -1,0 +1,16 @@
+services: 
+  nginx:
+    container_name: nginx
+    image: nginx
+    restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.nginx.rule=Host(`nginx.johnnypie.work`)
+      - traefik.http.routers.nginx.entrypoints=websecure
+      - traefik.http.routers.nginx.tls=true
+      - traefik.http.routers.nginx.tls.certresolver=production
+
+networks:
+  default:
+    external:
+      name: traefik_default

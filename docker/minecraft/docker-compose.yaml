@@ -6,11 +6,17 @@ services:
     volumes:
     - ./modpacks:/modpacks:ro
     - data:/data
+    restart: always
     environment:
+      ALLOW_FLIGHT: "TRUE"
+      DIFFICULTY: hard
+      ENABLE_AUTOPAUSE: "TRUE"
+      STOP_SERVER_ANNOUNCE_DELAY: 300
+      STOP_DURATION: 60
       EULA: "true"
       TYPE: CURSEFORGE
       CF_SERVER_MOD: /modpacks/server_pack_for_real.zip
-      MAX_MEMORY: 8G
+      MAX_MEMORY: 10G
     ports:
       - 25565:25565
 

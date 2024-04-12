@@ -5,7 +5,7 @@ cd "$(dirname "$0")"
 timestamp=$(date +"%Y-%m-%d_%H-%M-%S")
 
 # Build the backup filename with timestamp
-backup_file="wikibackup_${timestamp}.dump"
+backup_file="/home/backup/wikijs/wikibackup_${timestamp}.dump"
 
 # Execute docker command for backup
 docker exec wikijs_db_1 pg_dump wiki -U wikijs -F c > "$backup_file"

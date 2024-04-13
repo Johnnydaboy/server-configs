@@ -7,6 +7,7 @@ services:
     - ./modpacks:/modpacks:ro
     - data:/data
     restart: always
+    stop_grace_period: 10m
     environment:
       ALLOW_FLIGHT: "TRUE"
       DIFFICULTY: hard

@@ -1,3 +1,4 @@
 # backup wikijs files
 *.dump
 node_modules
+*.env

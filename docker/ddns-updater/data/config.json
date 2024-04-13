@@ -1,0 +1,14 @@
+{
+  "settings": [
+    {
+      "provider": "cloudflare",
+      "zone_identifier": "${ZONE_IDENTIFIER}",
+      "domain": "johnnypie.work",
+      "host": "@, minecraft, mc, play, wiki, nginx, ai, code, *",
+      "ttl": 600,
+      "token": "${EDIT_ZONE_TOKEN}",
+      "ip_version": "ipv4",
+      "ipv6_suffix": ""
+    }
+  ]
+}

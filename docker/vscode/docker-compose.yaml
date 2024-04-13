@@ -1,0 +1,33 @@
+---
+services:
+  code-server:
+    image: lscr.io/linuxserver/code-server:latest
+    container_name: code-server
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - PROXY_DOMAIN=code-server.my.domain #optional
+      - DEFAULT_WORKSPACE=/config/workspace #optional
+    env_file:
+      - path: ./tokens/sensitive-tokens.env
+        required: true
+    volumes:
+      - vscode:/config
+    ports:
+      - 8443:8443
+    restart: unless-stopped
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.code.rule=Host(`code.johnnypie.work`)
+      - traefik.http.routers.code.entrypoints=web, websecure
+      - traefik.http.routers.code.tls=true
+      - traefik.http.routers.code.tls.certresolver=production
+volumes:
+  vscode: {}
+
+networks:
+  default:
+    name: traefik_default
+    external: true
+

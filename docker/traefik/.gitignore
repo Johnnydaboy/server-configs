@@ -1,1 +1,2 @@
-config/certs/acme.json
+config/certs/*
+log/*

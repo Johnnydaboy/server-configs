@@ -19,6 +19,7 @@ global:
 # -- (Optional) Enable API and Dashboard here, don't do in production
 api:
   dashboard: true
+  insecure: true
 
 log:
   level: debug  # Change this to error, warn, info, or debug as needed
@@ -48,20 +49,60 @@ entryPoints:
   nginx:
     address: :8765
 
+# -- Configure your CertificateResolver here...
+certificatesResolvers:
+  staging:
+    acme:
+      email: jonathan.pi07@gmail.com
+      storage: /etc/traefik/certs/acme_stage.json
+      caServer: "https://acme-staging-v02.api.letsencrypt.org/directory"
+#       -- (Optional) Remove this section, when using DNS Challenge
+      httpChallenge:
+        entryPoint: nginx
+#       -- (Optional) Configure DNS Challenge
+#       dnsChallenge:
+#         provider: your-resolver (e.g. cloudflare)
+#         resolvers:
+#           - "1.1.1.1:53"
+#           - "8.8.8.8:53"
+  production:
+    acme:
+      email: jonathan.pi07@gmail.com
+      storage: /etc/traefik/certs/acme.json
+      caServer: "https://acme-v02.api.letsencrypt.org/directory"
+#       -- (Optional) Remove this section, when using DNS Challenge
+      tlsChallenge: {}
+      # httpChallenge:
+      #   entryPoint: web
+#       -- (Optional) Configure DNS Challenge
+#       dnsChallenge:
+#         provider: your-resolver (e.g. cloudflare)
+#         resolvers:
+#           - "1.1.1.1:53"
+#           - "8.8.8.8:53"
+
+# -- (Optional) Disable TLS Cert verification check
+# serversTransport:
+#   insecureSkipVerify: true
+
 # -- (Optional) Overwrite Default Certificates
 tls:
   options:
     default:
-      sniStrict: true
+      sniStrict: false
       minVersion: VersionTLS13
   certificates:
-    - certFile: /etc/traefik/certs/cloudflare.pem
-      keyFile: /etc/traefik/certs/cloudflare-pk.key
+    certFile: /etc/traefik/certs/cloudflare.pem
+    keyFile: /etc/traefik/certs/cloudflare-pk.key
+# -- (Optional) Disable TLS version 1.0 and 1.1
+#   options:
+#     default:
+#       minVersion: VersionTLS12
 
 providers:
   docker:
     # -- (Optional) Enable this, if you want to expose all containers automatically
     exposedByDefault: false
   file:
-    directory: /etc/traefik # watches for dynamic configuration
+    directory: /etc/traefik
     watch: true

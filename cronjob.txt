@@ -23,3 +23,4 @@
 # m h  dom mon dow   command
 0 0,6,12,18 * * * /home/server-configs/docker/wikijs/scripts/backup.sh
 0 6,18 * * * /home/server-configs/docker/minecraft/scripts/restart.sh
+0 7 * * Mon,Tue,Wed,Thu,Fri mergerfs.percent-full-mover /srv/dev-disk-by-uuid-3b75d029-ce96-470b-b244-bc995b7a7516 /srv/mergerfs/mergerfs 10
